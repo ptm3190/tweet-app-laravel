@@ -10,24 +10,28 @@
 <body>
     <h1>つぶやきアプリ</h1>
      <div>
-        <p>投稿フォーム</p>
-        @if (session('feedback.success'))
-            <p style="color: green">{{ session('feedback.success') }}</p>
-        @endif
-        <form action="{{ route('tweet.create') }}" method="post">
-            @csrf
-            <label for="tweet-content">つぶやき</label>
-            <span>140文字まで</span>
-            <textarea name="tweet" id="tweet-content" type="text" placeholder="つぶやきを入力"></textarea>
-            @error('tweet')
-                <p style="color: red;">{{ $message }}</p>
-            @enderror
-            <button type="submit">投稿</button>
-        </form>
+        {{-- 投稿フォーム　未ログイン時は投稿フォーム非表示 --}}
+        @auth
+            <p>投稿フォーム</p>
+            @if (session('feedback.success'))
+                <p style="color: green">{{ session('feedback.success') }}</p>
+            @endif
+            <form action="{{ route('tweet.create') }}" method="post">
+                @csrf
+                <label for="tweet-content">つぶやき</label>
+                <span>140文字まで</span>
+                <textarea name="tweet" id="tweet-content" type="text" placeholder="つぶやきを入力"></textarea>
+                @error('tweet')
+                    <p style="color: red;">{{ $message }}</p>
+                @enderror
+                <button type="submit">投稿</button>
+            </form>
+        @endauth
+
+        {{-- つぶやき一覧 --}}
         @foreach ($tweets as $tweet)
             <details>
-                <p>{{ $tweet->id }}</p>
-                <summary>{{ $tweet->content }}</summary>
+                <summary>{{ $tweet->content }} <br> by {{ $tweet->user->name }}</summary>
                 <div>
                     <a href="{{ route('tweet.update.index', ['tweetId' => $tweet->id]) }}">編集</a>
                     <form action="{{ route('tweet.delete', ['tweetId' => $tweet->id]) }}" method="post">

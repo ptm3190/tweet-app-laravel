@@ -42,4 +42,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // Userモデル→Tweetモデル間にリレーションを張る
+    public function tweets()
+    {
+        return $this->hasMany(Tweet::class);
+    }
 }

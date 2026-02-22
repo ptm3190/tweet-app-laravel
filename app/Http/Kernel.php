@@ -23,6 +23,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
     ];
 
+
     /**
      * The application's route middleware groups.
      *
@@ -52,6 +53,8 @@ class Kernel extends HttpKernel
      *
      * @var array<string, class-string|string>
      */
+    // ミドルウェアのエイリアスを定義
+    // ここに定義されたエイリアスは、ルートやグループにミドルウェアを割り当てる際にクラス名の代わりに使用できる
     protected $middlewareAliases = [
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
@@ -63,5 +66,7 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        // サンプルミドルウェアをエイリアスに追加
+        'sample' => \App\Http\Middleware\SampleMiddleware::class,
     ];
 }

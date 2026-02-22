@@ -18,3 +18,4 @@ class IndexController extends Controller
         return view('tweet.index')->with('tweets', $tweets);
     }
 }
+

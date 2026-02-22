@@ -18,6 +18,9 @@ class CreateController extends Controller
         // Tweetモデルをインスタンス化
         $tweet = new Tweet;
 
+        // CreateRequestのuserId()を呼び出し、Tweetモデルのuser_idに格納
+        $tweet->user_id = $request->userId();
+
         // リクエストクラスのtweet()を呼び出し、Tweetモデルのcontentに格納
         $tweet->content = $request->tweet();
 

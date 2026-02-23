@@ -32,7 +32,8 @@
         @foreach ($tweets as $tweet)
             <details>
                 <summary>{{ $tweet->content }} <br> by {{ $tweet->user->name }}</summary>
-                <div>
+                @if (\illuminate\Support\Facades\Auth::id() === $tweet->user_id)
+                                <div>
                     <a href="{{ route('tweet.update.index', ['tweetId' => $tweet->id]) }}">編集</a>
                     <form action="{{ route('tweet.delete', ['tweetId' => $tweet->id]) }}" method="post">
                         @method('DELETE')
@@ -40,6 +41,9 @@
                         <button type="submit">削除</button>
                     </form>
                 </div>
+                @else
+                    <p style="color: purple; font-weight: bold;">他人のつぶやきは編集・削除できません。</p>
+                @endif
             </details>
         @endforeach
      </div>

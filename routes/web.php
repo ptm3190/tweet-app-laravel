@@ -26,23 +26,26 @@ Route::get('/sample/{id}', [\App\Http\Controllers\Sample\IndexController::class,
 Route::get('/tweet', \App\Http\Controllers\Tweet\IndexController::class)
 ->name('tweet.index');
 
-// つぶやき投稿
-Route::post('/tweet/create', \App\Http\Controllers\Tweet\CreateController::class)
-->middleware('auth')
-->name('tweet.create');
+// 認証が必要なルートはauthミドルウェアでグループ化
+Route::middleware('auth')->group(function () {
 
-// つぶやき編集画面表示
-Route::get('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\Update\indexController::class)
-->name('tweet.update.index');
+    // つぶやき投稿
+    Route::post('/tweet/create', \App\Http\Controllers\Tweet\CreateController::class)
+    ->name('tweet.create');
 
-// つぶやき編集
-Route::put('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\Update\PutController::class)
-->name('tweet.update.put')
-->where('tweetId', '[0-9]+');
+    // つぶやき編集画面表示
+    Route::get('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\Update\indexController::class)
+    ->name('tweet.update.index');
 
-// つぶやき削除
-Route::delete('/tweet/delete/{tweetId}', \App\Http\Controllers\Tweet\DeleteController::class)
-->name('tweet.delete');
+    // つぶやき編集
+    Route::put('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\Update\PutController::class)
+    ->name('tweet.update.put')
+    ->where('tweetId', '[0-9]+');
+
+    // つぶやき削除
+    Route::delete('/tweet/delete/{tweetId}', \App\Http\Controllers\Tweet\DeleteController::class)
+    ->name('tweet.delete');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

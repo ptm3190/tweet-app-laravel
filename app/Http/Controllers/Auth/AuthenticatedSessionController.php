@@ -43,6 +43,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        // ログアウト後の遷移をつぶやきTOP画面に変更
+        return redirect('/tweet');
     }
 }

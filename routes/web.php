@@ -18,6 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test/', function () {
+    return view('test');
+});
+
 Route::get('/sample/', [\App\Http\Controllers\Sample\IndexController::class,'show']);
 
 Route::get('/sample/{id}', [\App\Http\Controllers\Sample\IndexController::class,'showId']);

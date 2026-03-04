@@ -12,7 +12,7 @@ class IndexController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request, TweetService $tweetService)
+    public function __invoke(TweetService $tweetService)
     {
         $tweets = $tweetService->getTweets();
         return view('tweet.index')->with('tweets', $tweets);
